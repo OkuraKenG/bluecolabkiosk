@@ -37,7 +37,7 @@ export default function App() {
         ) : (
           <Container className="backdrop-blur-md m-5 p-5 rounded-lg shadow-lg">
             <div className="flex items-center justify-center">
-              <Box component="img" sx={{ height: 50 }} src={logo} />
+              <Box component="img" sx={{ height: 90 }} src={logo} />
             </div>
             <ScrollingCarousel />
           </Container>

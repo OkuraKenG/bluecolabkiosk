@@ -1,7 +1,5 @@
 import * as React from 'react';
 import { Box, Typography } from '@mui/material';
-
-// ../assets/src/
 import BCLogo from '../assets/icons/logo512.png';
 
 export default function Standby({ onStart, fadeOut }: { onStart: () => void , fadeOut: boolean }) {

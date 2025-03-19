@@ -10,6 +10,7 @@ import IconButton from '@mui/material/IconButton';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Slide from '@mui/material/Slide';
 import { TransitionProps } from '@mui/material/transitions';
+import { Box } from '@mui/material';
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
@@ -88,19 +89,19 @@ export default function CardForCarousel(
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
       >
-        <div className="select-none pointer-events-none">
+      <Box sx={{ userSelect: 'none', pointerEvents: 'none' }}>
           <CardContent>
-            <Typography className="text-white text-lg text-center">
+            <Typography variant="h5"  align="center"  color="white">
               {title}
             </Typography>
           </CardContent>
           <CardMedia
             component="img"
-            sx={{ height: 150, width: 'auto', maxWidth: '100%', mx: 'auto' }}
+            sx={{ height: 200, width: 'auto', maxWidth: '100%', mx: 'auto' }}
             image={image}
             title=""
           />
-        </div>
+        </Box>
       </Card>
     </>
   );
