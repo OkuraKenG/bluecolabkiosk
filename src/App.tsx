@@ -37,6 +37,7 @@ export default function App() {
   // Listen for user interaction
   useEffect(() => {
     const defaultEvents = [
+      "mousedown",
       "touchstart",
       "keydown",
       "wheel",
