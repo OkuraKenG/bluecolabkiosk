@@ -7,13 +7,10 @@ import { Box } from '@mui/material';
 import background from './assets/background.mp4';
 import logo from './assets/icons/Blue-CoLab-500-blue.png';
 
-
-// Global Timer for stand-by screen. This will calculate 5 minues before the screen goes to standby
-
-
 export default function App() {
   const [isStandby, setIsStandby] = useState(true);
   const [fadeOut, setFadeOut] = useState(false);
+  const [fadeIn, setFadeIn] = useState(false); // Added fadeIn state
   const [lastActivity, setLastActivity] = useState(Date.now());
   const [standbyTime, setStandbyTime] = useState(300000); //  300000= 5 minutes 5000 = 5 seconds (for testing)
 
@@ -25,7 +22,6 @@ export default function App() {
     }
   };
 
-
   // Check for inactivity every second
   useEffect(() => {
     const checkInactivity = setInterval(() => {
@@ -34,20 +30,19 @@ export default function App() {
         console.log('Standby mode activated');
       }
     }, 1000); // Check every second
-    
+
     return () => clearInterval(checkInactivity);
   }, [lastActivity, standbyTime]);
 
-  // Listen for user intatcion
+  // Listen for user interaction
   useEffect(() => {
     const defaultEvents = [
-      // "mousedown",
       "touchstart",
       "keydown",
       "wheel",
       "resize",
     ];
-    
+
     // Add event listeners to reset inactivity timer
     defaultEvents.forEach((event) => {
       window.addEventListener(event, resetInactivity);
@@ -57,21 +52,19 @@ export default function App() {
       defaultEvents.forEach((event) => {
         window.removeEventListener(event, resetInactivity);
       });
-    }
-
+    };
   }, [resetInactivity]);
-
 
   const handleStart = () => {
     setFadeOut(true); // Start fade-out animation
     setTimeout(() => {
       setIsStandby(false); // Switch to carousel after fade-out
       resetInactivity(); // Ensure timer resets
-    }, 500); // 0.5 second transition
+      setTimeout(() => {
+        setFadeIn(true); // Start fade-in animation after switching content
+      }, 300); // Delay before starting the fade-in
+    }, 500); // 0.5 second transition for fade-out
   };
-
-   
-
 
   return (
     <div className="relative w-full h-screen">
@@ -85,12 +78,18 @@ export default function App() {
         <source src={background} type="video/mp4" />
       </video>
 
-      <div className="relative z-10 flex items-center justify-center h-full transition-opacity duration-1000">
+      <div className="relative z-10 flex items-center justify-center h-full">
         {isStandby ? (
           // Apply fade-out effect when transitioning
           <Standby onStart={handleStart} fadeOut={fadeOut} />
         ) : (
-          <Container className="backdrop-blur-md m-5 p-5 rounded-lg shadow-lg">
+          <Container
+            className="backdrop-blur-md m-5 p-5 rounded-lg shadow-lg transition-opacity ease-in duration-200"
+            style={{
+              opacity: fadeIn ? 1 : 0, // Control opacity based on fadeIn state
+              transition: 'opacity 1s ease-in', // Ensure smooth transition for opacity change
+            }}
+          >
             <div className="flex items-center justify-center">
               <Box component="img" sx={{ height: 90 }} src={logo} />
             </div>
