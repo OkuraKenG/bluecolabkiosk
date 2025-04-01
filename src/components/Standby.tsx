@@ -29,8 +29,9 @@ export default function Standby({ onStart, fadeOut }: { onStart: () => void , fa
             onClick={onStart}
         >
             <img src={BCLogo} alt="BCLogo" className="mb-4" />
+            
             <Typography variant="h1" className="text-white">
-                What do you know about water?
+                What do you know about water? 
             </Typography>
 
             <Typography variant="h2" className="text-white animate-pulse">

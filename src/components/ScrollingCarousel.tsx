@@ -54,7 +54,7 @@ export default function ScrollingCarousel() {
                 <DataToMusic />
             ),
         },
-        { // Jere is where to store Cronin Cruise Jeopardy and other games
+        { // Here is where to store Cronin Cruise Jeopardy and other games
             title: 'Games',
             image: games,
             children: (
