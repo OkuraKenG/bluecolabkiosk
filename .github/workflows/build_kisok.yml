@@ -1,0 +1,47 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main  # Trigger the workflow on push to the main branch (or change to your default branch)
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pages: write
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '22.11.0'  # Use the desired Node.js version
+
+    - name: Install dependencies
+      run: |
+        npm install
+      
+        # Install node-fetch@2, undici, and stream-browserify to polyfill ReadableStream
+        npm install node-fetch@2 undici stream-browserify
+
+    - name: Add polyfill to Node.js environment
+      run: |
+        # Polyfill ReadableStream using stream-browserify
+        echo "global.ReadableStream = require('stream-browserify').Readable;" > setup.js
+        node setup.js
+
+    - name: Build the project
+      run: |
+        npx expo export --platform web
+
+    - name: Deploy to GitHub Pages
+      run: |
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+          npx gh-pages --nojekyll -d dist -u "github-actions-bot <support+actions@github.com>"      
+      env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # This is automatically provided by GitHub Actions
+
