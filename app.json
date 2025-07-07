@@ -25,7 +25,7 @@
         }
       ]
     ],
-    "homepage": "https://okaykenji.github.io/bluecolabkiosk",
+    "homepage": "https://okurakeng.github.io/bluecolabkiosk",
     "experiments": {
       "typedRoutes": true,
       "baseUrl": "/bluecolabkiosk"
