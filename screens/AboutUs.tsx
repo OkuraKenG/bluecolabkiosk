@@ -13,12 +13,12 @@ export default function StoryScreen() {
       {/* Top Image */}
       <Image
         source={require("../assets/images/general/Three-labs.jpg")}   
-        style={{ width: '100%', height: 300, borderRadius: 8, marginBottom: 16 }}
+        style={{ width: '100%', height: 400, borderRadius: 8, marginBottom: 16 }}
         resizeMode="cover"
       />
 
       {/* Content Sections */}
-      <Text style = {{fontSize: 18 , fontWeight:'bold' , marginBottom:20 , color:'#002D72'}}>
+      <Text style = {{fontSize: 20 , fontWeight:'bold' , marginBottom:20 , color:'#002D72'}}>
         Do you know if your water is safe before you drink it?
       </Text>
       <Text style = {{fontSize: 16 , marginBottom:16 , color:'#374151'}}>
